@@ -1,6 +1,6 @@
 import SubjectPage from "./Views/SubjectPage";
 import HomePage from "./Views/HomePage";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "./Views/Font.css";
 
@@ -19,12 +19,12 @@ function App() {
     <div>
       {/*  */}
       <ThemeProvider theme={THEME}>
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/subject/:subjectId" element={<SubjectPage />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </ThemeProvider>
     </div>
   );

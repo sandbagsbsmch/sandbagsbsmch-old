@@ -8,12 +8,13 @@ import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
 import { finishSubject } from "../utils/localStorageManager";
 import confetti from "canvas-confetti";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
+import useWindowDimesions from "../Hooks/useWindowDimensions";
+
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -21,6 +22,8 @@ const style = {
 };
 
 export default function BasicModal({ subjectId }) {
+  const { width } = useWindowDimesions();
+
   const calculatedCycle = `${new Date().getFullYear().toString().substring(2)}${
     new Date().getMonth() > 5 ? "B" : "A"
   }`;
@@ -62,7 +65,7 @@ export default function BasicModal({ subjectId }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={{ ...style, width: width < 800 ? "80vw" : "40vw" }}>
           <Typography
             dir="rtl"
             id="modal-modal-title"

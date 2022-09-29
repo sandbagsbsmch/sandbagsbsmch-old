@@ -1,6 +1,5 @@
 import { Divider, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import Footer from "../Components/Footer";
 import "./Gradient.css";
 import Logo from "../Components/Logo";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -10,8 +9,31 @@ import Xarrow, { Xwrapper } from "react-xarrows";
 import { isSubjectFinished } from "../utils/localStorageManager";
 import useWindowDimesions from "../Hooks/useWindowDimensions";
 import CardList from "../Components/CardsList";
+import zIndex from "@mui/material/styles/zIndex";
 const HomePage = () => {
   const { width } = useWindowDimesions();
+  const computedStartArrow = (index) => {
+    let arrow = index % 2 === 1 ? "bottom" : "left";
+
+    if (width <= 600) {
+      arrow = "bottom";
+    } else if (width >= 900) {
+      arrow = index % 4 === 3 ? "bottom" : "left";
+    }
+
+    return arrow;
+  };
+  const computedEndArrow = (index) => {
+    let arrow = index % 2 === 1 ? "top" : "right";
+
+    if (width <= 600) {
+      arrow = "bottom";
+    } else if (width >= 900) {
+      arrow = index % 4 === 3 ? "top" : "right";
+    }
+
+    return arrow;
+  };
   return (
     <div id="home">
       <Box
@@ -49,7 +71,7 @@ const HomePage = () => {
           flexDirection: "column",
           display: "flex",
           alignItems: "center",
-          clipPath: "polygon(0 2%, 100% 0, 100% 98%, 0 100%)",
+          clipPath: "polygon(0 2%, 100% 0, 100% 100%, 0 100%)",
         }}
       >
         <Typography
@@ -63,7 +85,7 @@ const HomePage = () => {
           חומרי הלימוד
         </Typography>
         <Divider sx={{ mb: "2vh", width: "10%" }} variant="middle" />
-        <Typography dir="rtl" variant="h4" color="common.white">
+        <Typography dir="rtl" align="center" variant="h4" color="common.white">
           חומרי הלימוד אותם תצטרכו ללמוד לפני ההגעה לקורס.
         </Typography>
         <Divider sx={{ mb: "2vh" }} variant="middle" />
@@ -90,10 +112,8 @@ const HomePage = () => {
                     headSize={4}
                     color="#E4E4E4"
                     dashness={true}
-                    startAnchor={
-                      width < 720 || index % 4 === 3 ? "bottom" : "left"
-                    }
-                    endAnchor={width < 720 || index % 4 === 3 ? "top" : "right"}
+                    startAnchor={computedStartArrow(index)}
+                    endAnchor={computedEndArrow(index)}
                     start={index + ""}
                     end={index + 1 + ""}
                   />
@@ -104,18 +124,6 @@ const HomePage = () => {
             ))}
           </Xwrapper>
         </Grid>
-      </Box>
-      <Box
-        sx={{
-          pt: "5vh",
-          height: "100%",
-          flexDirection: "column",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Footer />
       </Box>
     </div>
   );
